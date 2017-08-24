@@ -1,0 +1,47 @@
+dist: trusty
+sudo: required
+language: java
+jdk:
+  - openjdk8
+env:
+  matrix:
+    secure: QaUoaBLuGYLwrswgHnIh7uoE1N60wHV2LKNdffl/hJK2DafHD4Zuac23zayQ4hRDW0V+k5lbLxSK4AuQX0VUsRmxJiDLP1gzR1xRJU3YLCOFdgly9XAsyVPCCSF4OurOyJMi18iynFrm3sv4QvDTq2CG0BxDkCmGAxZM17ppRJJgb7bqQjN3/cKsgL4M54IRizC4wuuC/s6Ehf/JdV/u0B4iYSox7CNVue3r5V7vC+OzY1Ci69C3VwMXOIUAjNBtjgLcYphT4Rh69cDkFLz6ERLsBH+y38lHVk6ATFEfjsNIpzR747uLYPxv/J8b7sMsU/ut8EmSuypR8PVP/EJYTZjTyg0Rpz9WL7eqnmOj2Dai+6kV6aniCeVhKydtSNyjYvwvLvMwBk/K3qIHpqf+0weOf4zLdNGYjp9PC1YY6uteeoisIBUjJs0VerV+3KwvmsCTnWiHhsP+DQCjJ5DdsdVvOypRUWnDnJhidt0SYvjT6Lrm1Celi5+gECZmkpedrOiIisokvM2nqAWwHLBuUZVxBX1bwhNIENE82ENwm0R0yToYzPU3Ze7zQ+fZc67AgzXEc78eIcweQtkI+oKV0MSV/A3jiKb65zm/P5GAEK9xRu8CBSwxSPTU+IyXinnXR9GmSlxDw7GlQzgR2FUxmsjPM5TuiclGVMR2XVnure4=
+script:
+
+# Decrypt and Unzip cert bundle for Openvpn (for more verbose unzip output remove the "-q")
+  - openssl aes-256-cbc -K $encrypted_7083b6319896_key -iv $encrypted_7083b6319896_iv -in certbundle.zip.enc -out certbundle.zip -d
+  - unzip -q certbundle.zip
+
+# Install openvpn
+  - sudo apt-get install openvpn
+
+# Openvpn connection
+  - sudo openvpn --config ovpnclient.conf --remap-usr1 SIGTERM --connect-retry-max 2 --single-session -vv > r.txt&
+
+# Wait for connection 10 seconds usially done in under 10 secd and most likely done in~ 5 sec
+  - sleep 10
+
+# Debug what is happening in openvpn connection
+  - cat r.txt
+   
+# Download (for more verbose wget remove the "-nv") 
+# and unzip Sonar-Scanner (for more verbose unzip output just use "-uo" instead of "-quo")
+  - wget -nv https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.0.3.778-linux.zip
+  - unzip -quo sonar-scanner-cli-3.0.3.778-linux.zip -d ../
+  
+# Tell sonar-scanner where the sonarqube server is (through the vpn tunnel)
+  - sudo echo "sonar.host.url=http://10.172.0.1:9000" > ../sonar-scanner-3.0.3.778-linux/conf/sonar-scanner.properties
+
+# Execute a sonar scan of the repo
+  - ../sonar-scanner-3.0.3.778-linux/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN
+# TODO
+  # Develope some way to ZAPROXY scan.
+    # Perhapse if build process has a deploy to staging or Dev ZAPROXY can run against the deployed service
+  # Download (for more verbose wget remove the "-nv") and untar/gunzip ZAPROXY - not sure what to do with it next
+    #- wget -nv https://github.com/zaproxy/zaproxy/releases/download/2.6.0/ZAP_2.6.0_Linux.tar.gz
+    #- mkdir ../ZAP
+    #- tar -zxvf ZAP*.tar.gz -C ../ZAP --strip-components=1
+# Identify working directory  
+  #- echo $PWD
+# List directory contents
+  #- ls 
