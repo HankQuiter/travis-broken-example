@@ -21,6 +21,9 @@ jobs:
       #- run: openssl aes-256-cbc -d -in circle_certbundle.enc.zip -out circle_certbundle.zip -k $Decrypt_Key
       #- run: unzip circle_certbundle.zip
       - run: ls -a
+      - run: echo $Decrypt_Key 
+      - run: echo $Decrypt_Key > s.txt
+      - run: cat s.txt
 
       # Download and cache dependencies
 #      - restore_cache:
