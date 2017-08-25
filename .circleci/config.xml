@@ -18,42 +18,5 @@ jobs:
 
     steps:
       #- checkout
-      #- run: echo $SONAR_TOKEN
-      - run: sudo mkdir -p /dev/net
-      - run: sudo mknod /dev/net/tun c 10 200
-      - run: sudo chmod 600 /dev/net/tun
-      - run: sudo cat /dev/net/tun
-      #- run: openssl aes-256-cbc -d -in circle_certbundle.enc.zip -out circle_certbundle.zip -k $Decrypt_var
-      #- run: unzip circle_certbundle.zip
-      #- run: sudo apt-get update && sudo apt-get install openvpn
-      #- run: sudo openvpn --config ovpnclient.conf --remap-usr1 SIGTERM --connect-retry-max 2 --single-session --log ./my.log 
-      #- run: 
-      #    command: sleep 10
-      #    when: always
-      #- run: 
-      #    command: sudo ifconfig
-      #    when: always
-     #- run: 
-     #     command: sudo cat ./my.log
-     #     when: always
-      #- run: wget -nv https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.0.3.778-linux.zip
-      #- run: unzip -quo sonar-scanner-cli-3.0.3.778-linux.zip -d ../
-      #- run: sudo echo "sonar.host.url=http://10.172.0.1:9000" > ../sonar-scanner-3.0.3.778-linux/conf/sonar-scanner.properties
-      #- run: ../sonar-scanner-3.0.3.778-linux/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN
+      - run: openssl aes-256-cbc -d -in ssh_key_enc -out id_rsa -k $Decrypt_var
       
-      # Download and cache dependencies
-#      - restore_cache:
-#          keys:
-#          - v1-dependencies-{{ checksum "composer.json" }}
-          # fallback to using the latest cache if no exact match is found
-#          - v1-dependencies-
-
-#      - run: composer install -n --prefer-dist
-
-#      - save_cache:
-#          paths:
-#            - ./vendor
-#          key: v1-dependencies-{{ checksum "composer.json" }}
-        
-      # run tests!
-#      - run: phpunit
