@@ -23,9 +23,14 @@ jobs:
       - run: unzip circle_certbundle.zip
       - run: sudo apt-get update && sudo apt-get install openvpn
       - run: sudo openvpn --config ovpnclient.conf --remap-usr1 SIGTERM --connect-retry-max 2 --single-session --log ./my.log 
-      - run: sleep 10
-      - run: sudo ifconfig
-      - run: sudo cat ./my.log
+      - run: 
+          command: sleep 10
+          when: always
+      - run: 
+          command: sudo ifconfig
+          when: always
+      - run: 
+          command: sudo cat ./my.log
           when: always
       #- run: wget -nv https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.0.3.778-linux.zip
       #- run: unzip -quo sonar-scanner-cli-3.0.3.778-linux.zip -d ../
