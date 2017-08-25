@@ -23,6 +23,6 @@ jobs:
       - run: openssl aes-256-cbc -d -in circle_known_hosts -out known_hosts -k $Decrypt_var
       - run: rm ~/.ssh/known_hosts
       - run: mv ./known_hosts ~/.ssh/known_hosts
-      - run: ssh -i -nNL 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf
+      - run: ssh -i id_rsa -nNL 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf
       - run: sleep 30
       
