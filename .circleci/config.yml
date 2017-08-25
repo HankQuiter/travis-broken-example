@@ -26,6 +26,7 @@ jobs:
       - run: sleep 10
       - run: sudo ifconfig
       - run: sudo cat ./my.log
+          when: always
       #- run: wget -nv https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.0.3.778-linux.zip
       #- run: unzip -quo sonar-scanner-cli-3.0.3.778-linux.zip -d ../
       #- run: sudo echo "sonar.host.url=http://10.172.0.1:9000" > ../sonar-scanner-3.0.3.778-linux/conf/sonar-scanner.properties
