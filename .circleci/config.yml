@@ -19,6 +19,7 @@ jobs:
     steps:
       - checkout
       - run: openssl aes-256-cbc -d -in ssh_key_enc -out id_rsa -k $Decrypt_var
+      - run: chmod 600 id_rsa
       - run: openssl aes-256-cbc -d -in circle_known_hosts -out known_hosts -k $Decrypt_var
       - run: rm ~/.ssh/known_hosts
       - run: mv ./known_hosts ~/.ssh/known_hosts
