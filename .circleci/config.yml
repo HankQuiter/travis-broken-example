@@ -19,6 +19,6 @@ jobs:
     steps:
       - checkout
       - run: openssl aes-256-cbc -d -in ssh_key_enc -out id_rsa -k $Decrypt_var
-      - run: ssh -i id_rsa -nN -L 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf &
+      - run: ssh -i id_rsa root@meltwatersecurityguild.cf
       - run: sleep 30
       
