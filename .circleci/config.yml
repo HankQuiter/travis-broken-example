@@ -20,7 +20,7 @@ jobs:
       - checkout
       - run: openssl aes-256-cbc -d -in circle_certbundle.enc.zip -out circle_certbundle.zip -k $Decrypt_var
       - run: unzip circle_certbundle.zip
-      - run: sudo apt-get install openvpn
+      - run: sudo apt-get update && sudo apt-get install openvpn
       - run: sudo openvpn --config ovpnclient.conf --remap-usr1 SIGTERM --connect-retry-max 2 --single-session -vv > r.txt&
       - run: sleep 10
       - run: cat r.txt
