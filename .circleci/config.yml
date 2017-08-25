@@ -18,8 +18,9 @@ jobs:
 
     steps:
       - checkout
-      - run: openssl aes-256-cbc -d -in circle_certbundle.enc.zip -out circle_certbundle.zip -k $Decrypt_Key
-      - run: unzip circle_certbundle.zip
+      #- run: openssl aes-256-cbc -d -in circle_certbundle.enc.zip -out circle_certbundle.zip -k $Decrypt_Key
+      #- run: unzip circle_certbundle.zip
+      - run: ls -a
 
       # Download and cache dependencies
 #      - restore_cache:
