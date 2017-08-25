@@ -1,0 +1,11 @@
+machine:
+  java:
+  dependencies:
+  pre:
+    - echo $SONAR_TOKEN
+    - openssl aes-256-cbc -d -in circle_certbundle.enc.zip -out circle_certbundle.zip -k $Decrypt_var
+deployment:
+  publish:
+    branch: master
+    commands:
+      - unzip circle_certbundle.zip
