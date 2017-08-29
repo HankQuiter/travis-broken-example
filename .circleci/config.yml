@@ -24,7 +24,7 @@ jobs:
       - run: rm ~/.ssh/known_hosts
       - run: mv ./known_hosts ~/.ssh/known_hosts
       - run: 
-          name:Remote SSH to Cloud Instance
+          name: Remote SSH to Cloud Instance
           command: ssh -4 -i id_rsa -nN -L 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf
           background: true
       - run: sleep 30
