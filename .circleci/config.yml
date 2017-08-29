@@ -23,9 +23,10 @@ jobs:
       - run: openssl aes-256-cbc -d -in circle_known_hosts -out known_hosts -k $Decrypt_var
       - run: rm ~/.ssh/known_hosts
       - run: mv ./known_hosts ~/.ssh/known_hosts
-      #- run: ssh -4 -i id_rsa -nN -L 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf &
-      - run: bash -c "sudo ssh -4 -i id_rsa -NL 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf &"
-      #- run: sudo cat /my_log
+      - run: 
+          name:Remote SSH to Cloud Instance
+          command: ssh -4 -i id_rsa -nN -L 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf
+          background: true
       - run: sleep 30
       - run: wget -nv https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.0.3.778-linux.zip
       - run: unzip -quo sonar-scanner-cli-3.0.3.778-linux.zip -d ../
