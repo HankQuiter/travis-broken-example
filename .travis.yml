@@ -18,13 +18,12 @@ script:
   - chmod 400 id_rsa
 
 # Establish background SSH tunnel 
-# "-4" needed to make sure CircleCI uses IPv4 - becasue it will use IPv6 otherwise
-# "-i id_rsa" this is the login key
-# "-nN"  -> "-n" needed to run command in background properly "N" means do nothing once you estalish the pipe
-# "-L 9000:172.31.58.162:9000" Local port 9000 forwarded to SonarQube server instance IP&port "172.31.58.162:9000"
+## "-4" needed to make sure CircleCI uses IPv4 - becasue it will use IPv6 otherwise
+## "-i id_rsa" this is the login key
+## "-nN"  -> "-n" needed to run command in background properly "N" means do nothing once you estalish the pipe
+## "-L 9000:172.31.58.162:9000" Local port 9000 forwarded to SonarQube server instance IP&port "172.31.58.162:9000"
   - ssh -4 -i id_rsa -nN -L 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf > s.txt &
-  #- netstat -an |grep 22 > s.txt
-  - cat s.txt
+
           
 
 # Install openvpn
@@ -44,10 +43,10 @@ script:
   - wget -nv https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.0.3.778-linux.zip
   - unzip -quo sonar-scanner-cli-3.0.3.778-linux.zip -d ../
   
-# Tell sonar-scanner where the sonarqube server is (through the vpn tunnel)
-  - sudo echo "sonar.host.url=http://10.172.0.1:9000" > ../sonar-scanner-3.0.3.778-linux/conf/sonar-scanner.properties
-  #ssh methode to tell sonar-scanner where the server is located
-  #- sudo echo "sonar.host.url=http://localhost:9000" > ../sonar-scanner-3.0.3.778-linux/conf/sonar-scanner.properties
+# Openvpn method Tell sonar-scanner where the sonarqube server is (through the vpn tunnel)
+  #- sudo echo "sonar.host.url=http://10.172.0.1:9000" > ../sonar-scanner-3.0.3.778-linux/conf/sonar-scanner.properties
+# ssh methode to tell sonar-scanner where the server is located (ssh port forwarding)
+  - sudo echo "sonar.host.url=http://localhost:9000" > ../sonar-scanner-3.0.3.778-linux/conf/sonar-scanner.properties
 
 # Execute a sonar scan of the repo
   - ../sonar-scanner-3.0.3.778-linux/bin/sonar-scanner -Dsonar.login=$TRAVIS_SONAR_TOKEN
