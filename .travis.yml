@@ -15,17 +15,17 @@ script:
 # SSH method for travis-ci
 
 # Decrypt ssh key travis-ci
-#  - openssl aes-256-cbc -K $encrypted_7083b6319896_key -iv $encrypted_7083b6319896_iv -in id_rsa.enc -out id_rsa -d
+  - openssl aes-256-cbc -K $encrypted_7083b6319896_key -iv $encrypted_7083b6319896_iv -in id_rsa.enc -out id_rsa -d
 
 #Proper permissions for ssh key
-#  - chmod 400 id_rsa
+  - chmod 400 id_rsa
 
 # Establish background SSH tunnel 
 # "-4" needed to make sure CircleCI uses IPv4 - becasue it will use IPv6 otherwise
 # "-i id_rsa" this is the login key
 # "-nN"  -> "-n" needed to run command in background properly "N" means do nothing once you estalish the pipe
 # "-L 9000:172.31.58.162:9000" Local port 9000 forwarded to SonarQube server instance IP&port "172.31.58.162:9000"
-#  - ssh -4 -i id_rsa -nN -L 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf &
+  - ssh -4 -i id_rsa -nN -L 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf &
           
 
 # Install openvpn
