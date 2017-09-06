@@ -16,6 +16,9 @@ script:
 # SSH method for travis-ci
 #Proper permissions for ssh key
   - chmod 400 id_rsa
+#establishing the sonarqube server as a know host with a prebuilt know host
+  - rm ~/.ssh/known_hosts
+  - mv ./known_hosts ~/.ssh/known_hosts
 
 # Establish background SSH tunnel 
 ## "-4" needed to make sure CircleCI uses IPv4 - becasue it will use IPv6 otherwise
