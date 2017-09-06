@@ -22,7 +22,7 @@ script:
 # "-i id_rsa" this is the login key
 # "-nN"  -> "-n" needed to run command in background properly "N" means do nothing once you estalish the pipe
 # "-L 9000:172.31.58.162:9000" Local port 9000 forwarded to SonarQube server instance IP&port "172.31.58.162:9000"
-  - ssh -4 -i id_rsa -L 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf > s.txt &
+  - ssh -4 -i id_rsa -nN -L 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf > s.txt &
   #- netstat -an |grep 22 > s.txt
   - cat s.txt
           
