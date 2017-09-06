@@ -27,16 +27,16 @@ script:
           
 
 # Install openvpn
-  - sudo apt-get install openvpn
+  #- sudo apt-get install openvpn
 
 # Openvpn connection
-  - sudo openvpn --config ovpnclient.conf --remap-usr1 SIGTERM --connect-retry-max 2 --single-session -vv > r.txt&
+  #- sudo openvpn --config ovpnclient.conf --remap-usr1 SIGTERM --connect-retry-max 2 --single-session -vv > r.txt&
 
 # Wait for connection 10 seconds usially done in under 10 secd and most likely done in~ 5 sec
-  - sleep 10
+  #- sleep 10
 
 # Debug what is happening in openvpn connection
-  - cat r.txt
+  #- cat r.txt
    
 # Download (for more verbose wget remove the "-nv") 
 # and unzip Sonar-Scanner (for more verbose unzip output just use "-uo" instead of "-quo")
@@ -45,6 +45,7 @@ script:
   
 # Openvpn method Tell sonar-scanner where the sonarqube server is (through the vpn tunnel)
   #- sudo echo "sonar.host.url=http://10.172.0.1:9000" > ../sonar-scanner-3.0.3.778-linux/conf/sonar-scanner.properties
+
 # ssh methode to tell sonar-scanner where the server is located (ssh port forwarding)
   - sudo echo "sonar.host.url=http://localhost:9000" > ../sonar-scanner-3.0.3.778-linux/conf/sonar-scanner.properties
 
