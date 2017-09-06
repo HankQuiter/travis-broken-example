@@ -6,6 +6,7 @@ jdk:
 env:
   matrix:
     secure: QaUoaBLuGYLwrswgHnIh7uoE1N60wHV2LKNdffl/hJK2DafHD4Zuac23zayQ4hRDW0V+k5lbLxSK4AuQX0VUsRmxJiDLP1gzR1xRJU3YLCOFdgly9XAsyVPCCSF4OurOyJMi18iynFrm3sv4QvDTq2CG0BxDkCmGAxZM17ppRJJgb7bqQjN3/cKsgL4M54IRizC4wuuC/s6Ehf/JdV/u0B4iYSox7CNVue3r5V7vC+OzY1Ci69C3VwMXOIUAjNBtjgLcYphT4Rh69cDkFLz6ERLsBH+y38lHVk6ATFEfjsNIpzR747uLYPxv/J8b7sMsU/ut8EmSuypR8PVP/EJYTZjTyg0Rpz9WL7eqnmOj2Dai+6kV6aniCeVhKydtSNyjYvwvLvMwBk/K3qIHpqf+0weOf4zLdNGYjp9PC1YY6uteeoisIBUjJs0VerV+3KwvmsCTnWiHhsP+DQCjJ5DdsdVvOypRUWnDnJhidt0SYvjT6Lrm1Celi5+gECZmkpedrOiIisokvM2nqAWwHLBuUZVxBX1bwhNIENE82ENwm0R0yToYzPU3Ze7zQ+fZc67AgzXEc78eIcweQtkI+oKV0MSV/A3jiKb65zm/P5GAEK9xRu8CBSwxSPTU+IyXinnXR9GmSlxDw7GlQzgR2FUxmsjPM5TuiclGVMR2XVnure4=
+    secure: P9WfZElbV809fo4SNiZa5mCGc+FyXNGW7mgFcjrIM3qeAVNmOATOGTqRlLmSH63kutktqUVHdHmDfx3fN+v03xOWT094Fla4FnQhAB04tWB4+0lZntr7/GymuoEdmXbxF4pGrJ2zC06aJ3/Hv1m9URK0N9T1bAy2u53vtPfy0uUCtTVWmIocUxPtkvNBvR4KhxGemgtL00SQljxBAtqAE3uIZX41cVHAh+HDfRgwasDk9Qd3sJ4BTuFpNp0vdKMSHlN5l9uFudf/mxkqp3eVeXgaXEn8dzJOWVcnsnFY0Zl+XpVQro8i7q/EiNO1+LE1SiS+a70Xw//0IGuoV97d09xszZQ4J2Uv//EGw/WK799zavXqRWOWVbJbcLXEVxcv6zHzcLCg0lugTKRI9kyZ5u//OEYe8D1y7l8+jbxAPFjAFdb7J9QjCoHrJ9pHQguNM8WrCtHLRIC0dSzhOjKdEZ7AgcI6sTgfTRyuGLVtqKbIcI9jF9rnU+7YYATGH8MOJfY2DsKgIz0N0lX+w7vmh7Z8pGGmCvZJmpDzODhfPZf+fucQODr/9ribQ6cbHoZ9PevbmE0uDyL/Ed0NFMFXt83+qLsrkUVD1lser8JUJsVsJOzBviG5brSw8x1v1m7GId+hTrflMh7/letRr2w7lhmfelM0a8b1NegLJDkLj8w=
 script:
 
 # Decrypt and Unzip cert bundle for Openvpn (for more verbose unzip output remove the "-q")
@@ -51,7 +52,7 @@ script:
   #- sudo echo "sonar.host.url=http://localhost:9000" > ../sonar-scanner-3.0.3.778-linux/conf/sonar-scanner.properties
 
 # Execute a sonar scan of the repo
-  - ../sonar-scanner-3.0.3.778-linux/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN
+  - ../sonar-scanner-3.0.3.778-linux/bin/sonar-scanner -Dsonar.login=$TRAVIS_SONAR_TOKEN
 # TODO
   # Develope some way to ZAPROXY scan.
     # Perhapse if build process has a deploy to staging or Dev ZAPROXY can run against the deployed service
