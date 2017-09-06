@@ -16,16 +16,17 @@ script:
 # SSH method for travis-ci
 #Proper permissions for ssh key
   - chmod 400 id_rsa
-#establishing the sonarqube server as a know host with a prebuilt know host
-  - rm ~/.ssh/known_hosts
-  - mv ./known_hosts ~/.ssh/known_hosts
+#establishing the sonarqube server as a know host with a prebuilt know host may not be needed if '-o "StrictHostKeyChecking no"' is used in the ssh command
+  #- rm ~/.ssh/known_hosts
+  #- mv ./known_hosts ~/.ssh/known_hosts
 
 # Establish background SSH tunnel 
 ## "-4" needed to make sure CircleCI uses IPv4 - becasue it will use IPv6 otherwise
 ## "-i id_rsa" this is the login key
 ## "-nN"  -> "-n" needed to run command in background properly "N" means do nothing once you estalish the pipe
 ## "-L 9000:172.31.58.162:9000" Local port 9000 forwarded to SonarQube server instance IP&port "172.31.58.162:9000"
-  - ssh -4 -i id_rsa -nN -L 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf > s.txt &
+  #- ssh -4 -i id_rsa -nN -L 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf > s.txt &
+  - ssh -4 -i id_rsa -nN -o "StrictHostKeyChecking no" -L 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf > s.txt &
 
           
 
