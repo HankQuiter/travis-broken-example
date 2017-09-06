@@ -25,7 +25,7 @@ jobs:
 # Key permissions 400 = Read Only by owner Only
       - run: chmod 400 id_rsa
       
-# Decrypt Known_hosts for (encrypted before check-in)
+# Decrypt Known_hosts for (encrypted before check-in). May not have to worry about known_hosts file with ssh -o "StrictHostKeyChecking no" see below for alternate ssh connection method
       - run: openssl aes-256-cbc -d -in circle_known_hosts -out known_hosts -k $Decrypt_var
       
 # Move known_host to default location
@@ -40,6 +40,8 @@ jobs:
       - run: 
           name: Remote SSH to Cloud Instance
           command: ssh -4 -i id_rsa -nN -L 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf
+          #alternate auto accept unknown hosts with ssh untested
+          #command: ssh -4 -i id_rsa -nN -o "StrictHostKeyChecking no" -L 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf
           background: true
 
 # Get and unzip sonar scanner soanr-scanner in parent folder
