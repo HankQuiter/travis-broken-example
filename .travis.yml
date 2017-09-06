@@ -9,15 +9,11 @@ env:
     secure: P9WfZElbV809fo4SNiZa5mCGc+FyXNGW7mgFcjrIM3qeAVNmOATOGTqRlLmSH63kutktqUVHdHmDfx3fN+v03xOWT094Fla4FnQhAB04tWB4+0lZntr7/GymuoEdmXbxF4pGrJ2zC06aJ3/Hv1m9URK0N9T1bAy2u53vtPfy0uUCtTVWmIocUxPtkvNBvR4KhxGemgtL00SQljxBAtqAE3uIZX41cVHAh+HDfRgwasDk9Qd3sJ4BTuFpNp0vdKMSHlN5l9uFudf/mxkqp3eVeXgaXEn8dzJOWVcnsnFY0Zl+XpVQro8i7q/EiNO1+LE1SiS+a70Xw//0IGuoV97d09xszZQ4J2Uv//EGw/WK799zavXqRWOWVbJbcLXEVxcv6zHzcLCg0lugTKRI9kyZ5u//OEYe8D1y7l8+jbxAPFjAFdb7J9QjCoHrJ9pHQguNM8WrCtHLRIC0dSzhOjKdEZ7AgcI6sTgfTRyuGLVtqKbIcI9jF9rnU+7YYATGH8MOJfY2DsKgIz0N0lX+w7vmh7Z8pGGmCvZJmpDzODhfPZf+fucQODr/9ribQ6cbHoZ9PevbmE0uDyL/Ed0NFMFXt83+qLsrkUVD1lser8JUJsVsJOzBviG5brSw8x1v1m7GId+hTrflMh7/letRr2w7lhmfelM0a8b1NegLJDkLj8w=
 script:
 
-# Decrypt and Unzip cert bundle for Openvpn (for more verbose unzip output remove the "-q")
+# Decrypt and Unzip cert bundle for Openvpn (for more verbose unzip output remove the "-q") now contains SSH key
   - openssl aes-256-cbc -K $encrypted_7083b6319896_key -iv $encrypted_7083b6319896_iv -in certbundle.zip.enc -out certbundle.zip -d
   - unzip -q certbundle.zip
 
 # SSH method for travis-ci
-
-# Decrypt ssh key travis-ci
-  - openssl aes-256-cbc -K $encrypted_7083b6319896_key -iv $encrypted_7083b6319896_iv -in id_rsa.enc -out id_rsa -d
-
 #Proper permissions for ssh key
   - chmod 400 id_rsa
 
@@ -26,7 +22,8 @@ script:
 # "-i id_rsa" this is the login key
 # "-nN"  -> "-n" needed to run command in background properly "N" means do nothing once you estalish the pipe
 # "-L 9000:172.31.58.162:9000" Local port 9000 forwarded to SonarQube server instance IP&port "172.31.58.162:9000"
-  - ssh -4 -i id_rsa -nN -L 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf &
+  - ssh -4 -i id_rsa -nN -L 9000:172.31.58.162:9000 root@meltwatersecurityguild.cf & > s.txt
+  - cat s.txt
           
 
 # Install openvpn
