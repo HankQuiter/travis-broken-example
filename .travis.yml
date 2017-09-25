@@ -14,7 +14,7 @@ script:
   #- openssl aes-256-cbc -K $encrypted_7083b6319896_key -iv $encrypted_7083b6319896_iv -in certbundle.zip.enc -out certbundle.zip -d
   #- unzip -q certbundle.zip
 
-# SSH tunnel method for travis-ci
+# Decrypt ssh log in key
   - openssl aes-256-cbc -K $encrypted_569a1bef238c_key -iv $encrypted_569a1bef238c_iv -in MeltwaterSonarQubeAMI.pem.enc -out MeltwaterSonarQubeAMI.pem -d
 #Proper permissions for ssh key
   - chmod 400 MeltwaterSonarQubeAMI.pem
