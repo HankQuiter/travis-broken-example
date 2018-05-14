@@ -1,0 +1,13 @@
+#PSUDO CODE FOR NEEDED COMMANDS
+#needed stuff - ssh key is in env through Travis configurations - this is encrypted 
+# java is needed
+
+Install git
+install python-pip
+install zap-cli (pip install --upgrade git+https://github.com/Grunny/zap-cli.git)
+Esstablish ssh/vpn tunnel to server that has access to the resource to be scanned.
+Downlaod latest zap (or one that works with zap-cli)
+unzip zap
+execute zap based on checkedin session.
+export report in *.md format
+check that report in with data and time of the run in the title.
